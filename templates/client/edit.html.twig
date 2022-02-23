@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification du client{% endblock %}
+
+{% block body %}
+
+    <div class="row mt-2">
+        <div class="col-md-6 mx-auto">
+            <h1>Modifier le client {{ client.name}} {{ client.firstname}}</h1>
+            <hr>
+             {% include "client/_form.html.twig" %}
+        </div>
+    </div>
+
+{% endblock %}

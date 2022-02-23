@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Form\ClientType;
+use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,13 +15,16 @@ class ClientController extends AbstractController
 {
 
     //constructeur
-    public function __construct(private EntityManagerInterface $em){}
+    public function __construct(private EntityManagerInterface $em, private ClientRepository $clientRepo){}
 
     #[Route('/', name: 'client.index')]
     public function index(): Response
     {
+        //recupere tous les clients se trouvant dans la BDD
+        $clients = $this->clientRepo->findAll();
+        
         return $this->render('client/index.html.twig', [
-            'controller_name' => 'ClientController',
+            'clients' => $clients,
         ]);
     }
 
@@ -55,7 +59,7 @@ class ClientController extends AbstractController
     }
 
 
-    #[Route('/client/edit/{id?0}', name: 'client.create')]
+    #[Route('/client/edit/{id?0}', name: 'client.edit')]
     public function edit(Client $client = null, Request $request): Response
     {
         //creation du formulaire
@@ -74,8 +78,9 @@ class ClientController extends AbstractController
             return $this->redirectToRoute('client.index');
         }
  
-        return $this->render('client/new.html.twig',[
-            'form' => $form->createView()
+        return $this->render('client/edit.html.twig',[
+            'form' => $form->createView(),
+            'client' => $client
         ]);
 
     }
