@@ -47,10 +47,38 @@ class ClientController extends AbstractController
             //redirection
             return $this->redirectToRoute('client.index');
         }
-
+ 
         return $this->render('client/new.html.twig',[
             'form' => $form->createView()
         ]);
 
     }
+
+
+    #[Route('/client/edit/{id?0}', name: 'client.create')]
+    public function edit(Client $client = null, Request $request): Response
+    {
+        //creation du formulaire
+        $form = $this->createForm(ClientType::class,$client);
+
+        //analyse la requete
+        $form->handleRequest($request);
+
+        //verifie si le formulaire est envoyé et qu'il est valide
+        if($form->isSubmitted() && $form->isValid())
+        {
+            //
+            $this->em->flush();
+
+            //redirection
+            return $this->redirectToRoute('client.index');
+        }
+ 
+        return $this->render('client/new.html.twig',[
+            'form' => $form->createView()
+        ]);
+
+    }
+
+
 }
