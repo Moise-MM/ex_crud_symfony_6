@@ -86,4 +86,20 @@ class ClientController extends AbstractController
     }
 
 
+    #[Route('/client/delete/{id?0}', name: 'client.delete')]
+    public function delete(Client $client = null, Request $request): Response
+    {
+        //verification si le csrf_token est valide
+        if($this->isCsrfTokenValid('delete'.$client->getId(),$request->get('_token')))
+        {
+            //suppression du client
+            $this->em->remove($client);
+            $this->em->flush();
+        }
+        
+        return $this->redirectToRoute("client.index");
+
+    }
+
+
 }
