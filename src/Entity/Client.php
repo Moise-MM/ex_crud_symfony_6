@@ -28,6 +28,9 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private $email;
 
+    #[ORM\ManyToOne(targetEntity: Entreprise::class, inversedBy: 'clients')]
+    private $entreprise;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class Client
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getEntreprise(): ?Entreprise
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(?Entreprise $entreprise): self
+    {
+        $this->entreprise = $entreprise;
 
         return $this;
     }
