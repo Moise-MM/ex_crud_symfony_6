@@ -28,6 +28,15 @@ class ClientController extends AbstractController
         ]);
     }
 
+    #[Route('/client/{id?0}', name: 'client.show')]
+    public function show(Client $client): Response
+    {
+        
+        return $this->render('client/show.html.twig', [
+            'client' => $client,
+        ]);
+    }
+
 
     #[Route('/client/new', name: 'client.create')]
     public function create(Request $request): Response

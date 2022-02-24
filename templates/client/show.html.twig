@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification du client{% endblock %}
+
+{% block body %}
+
+    <div class="row mt-2">
+        <div class="col-md-2 mx-auto">
+            <p><img src="{{ asset('image/profil.png') }}" alt="Profil"></p>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-ms-12">
+            <p>Nom : {{ client.name }}</p>
+            <p>Prenom : {{ client.firstname }}</p>
+            <p>Sexe : {{ client.sexe }}</p>
+            <p>Phone : {{ client.phone }}</p>
+            <p>Email : {{ client.email }}</p>
+            <p>Entreprise : {{ client.entreprise }}</p>
+        </div>
+    </div>
+
+{% endblock %}
