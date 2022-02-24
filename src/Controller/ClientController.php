@@ -29,8 +29,14 @@ class ClientController extends AbstractController
     }
 
     #[Route('/client/{id?0}', name: 'client.show')]
-    public function show(Client $client): Response
+    public function show(Client $client = null): Response
     {
+        //verifie si le client est trouvé
+        if(!$client)
+        {
+            //redirection
+            return $this->redirectToRoute('client.index');
+        }
         
         return $this->render('client/show.html.twig', [
             'client' => $client,
@@ -71,6 +77,13 @@ class ClientController extends AbstractController
     #[Route('/client/edit/{id?0}', name: 'client.edit')]
     public function edit(Client $client = null, Request $request): Response
     {
+        //verifie si le client est trouvé
+        if(!$client)
+        {
+            //redirection
+            return $this->redirectToRoute('client.index');
+        }
+        
         //creation du formulaire
         $form = $this->createForm(ClientType::class,$client);
 
